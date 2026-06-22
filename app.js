@@ -134,6 +134,7 @@ const resultTitle = document.querySelector("#resultTitle");
 const sortSelect = document.querySelector("#sortSelect");
 const vibeLabel = document.querySelector("#vibeLabel");
 const confidenceLabel = document.querySelector("#confidenceLabel");
+const todayDate = document.querySelector("#todayDate");
 const styleButtons = document.querySelectorAll(".segment");
 const trendButtons = document.querySelectorAll(".trend-chips button");
 
@@ -142,6 +143,17 @@ let hasUpload = false;
 
 function money(value) {
   return `AED ${value}`;
+}
+
+function setTodayDate() {
+  const today = new Date();
+  todayDate.dateTime = today.toISOString().slice(0, 10);
+  todayDate.textContent = today.toLocaleDateString("en-AE", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
 }
 
 function renderProducts() {
@@ -287,4 +299,5 @@ budgetRange.addEventListener("input", () => {
 sortSelect.addEventListener("change", renderProducts);
 analyzeButton.addEventListener("click", analyzeOutfit);
 
+setTodayDate();
 renderProducts();

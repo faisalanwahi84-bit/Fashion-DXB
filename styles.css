@@ -84,6 +84,13 @@ button {
   color: var(--accent);
 }
 
+.topbar-date {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(310px, 380px) 1fr;
@@ -680,6 +687,10 @@ select {
 
   .topbar-links {
     display: none;
+  }
+
+  .topbar-date {
+    font-size: 0.78rem;
   }
 
   .workspace {
