@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StyleMatch Outfit Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <nav class="topbar" aria-label="Main navigation">
+      <a class="topbar-brand" href="#">
+        <span class="brand-mark small">SM</span>
+        <span>StyleMatch</span>
+      </a>
+      <div class="topbar-links">
+        <a href="#productGrid">Matches</a>
+        <a href="#dropZone">Upload</a>
+        <a href="#styleBoard">Style board</a>
+      </div>
+    </nav>
+
+    <section class="workspace">
+      <aside class="panel upload-panel" aria-label="Upload outfit">
+        <div class="brand-row">
+          <div class="brand-mark">SM</div>
+          <div>
+            <p class="eyebrow">Visual outfit search</p>
+            <h1>StyleMatch</h1>
+          </div>
+        </div>
+
+        <label class="drop-zone" for="outfitUpload" id="dropZone">
+          <input id="outfitUpload" type="file" accept="image/*">
+          <span class="upload-icon" aria-hidden="true">+</span>
+          <span class="drop-title">Upload outfit photo</span>
+          <span class="drop-copy">JPG, PNG, or WebP. Best with full-body outfit images.</span>
+        </label>
+
+        <div class="preview-card" id="previewCard">
+          <img id="previewImage" alt="Uploaded outfit preview">
+          <button class="icon-button remove-button" type="button" id="removeImage" aria-label="Remove uploaded image">x</button>
+        </div>
+
+        <div class="controls">
+          <div class="control-group">
+            <span class="control-label">Style focus</span>
+            <div class="segmented" role="group" aria-label="Style focus">
+              <button class="segment active" type="button" data-style="all">All</button>
+              <button class="segment" type="button" data-style="casual">Casual</button>
+              <button class="segment" type="button" data-style="formal">Formal</button>
+              <button class="segment" type="button" data-style="street">Street</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Budget</span>
+            <input type="range" id="budgetRange" min="40" max="450" value="220">
+            <div class="range-row">
+              <span>AED 40</span>
+              <strong id="budgetValue">AED 220</strong>
+              <span>AED 450</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-note">
+          <span class="note-number">3</span>
+          <p>Stores scanned in this demo: high street, premium, and sneaker-focused shops.</p>
+        </div>
+      </aside>
+
+      <section class="results-area" aria-label="Similar outfit results">
+        <div class="hero-band">
+          <div class="hero-copy">
+            <p class="eyebrow">Upload. Match. Shop.</p>
+            <h2>Find similar fashion pieces from stores you can buy from.</h2>
+            <p class="hero-text">Drop in a look you love and discover matching jackets, shoes, bags, dresses, and basics across different budgets.</p>
+            <div class="trend-chips" aria-label="Popular searches">
+              <button type="button" data-style="formal">Tailored neutrals</button>
+              <button type="button" data-style="casual">Weekend denim</button>
+              <button type="button" data-style="street">Street layers</button>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="">
+            <div class="floating-tag tag-one">96% blazer match</div>
+            <div class="floating-tag tag-two">AED 185 skirt</div>
+          </div>
+          <button class="primary-button" type="button" id="analyzeButton">Analyze outfit</button>
+        </div>
+
+        <div class="style-board" id="styleBoard" aria-label="Style inspiration board">
+          <article>
+            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=700&q=80" alt="Neutral outfit inspiration">
+            <span>Minimal</span>
+          </article>
+          <article>
+            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80" alt="Elegant outfit inspiration">
+            <span>Elegant</span>
+          </article>
+          <article>
+            <img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=700&q=80" alt="Street outfit inspiration">
+            <span>Street</span>
+          </article>
+        </div>
+
+        <div class="insights-row" id="insightsRow">
+          <article class="insight">
+            <span>Detected palette</span>
+            <div class="swatches">
+              <i style="background:#1f2937"></i>
+              <i style="background:#f6f1e8"></i>
+              <i style="background:#b08968"></i>
+            </div>
+          </article>
+          <article class="insight">
+            <span>Likely vibe</span>
+            <strong id="vibeLabel">Minimal smart casual</strong>
+          </article>
+          <article class="insight">
+            <span>Match confidence</span>
+            <strong id="confidenceLabel">Ready after upload</strong>
+          </article>
+        </div>
+
+        <div class="toolbar">
+          <div>
+            <p class="eyebrow">Similar items</p>
+            <h3 id="resultTitle">Curated matches</h3>
+          </div>
+          <select id="sortSelect" aria-label="Sort results">
+            <option value="match">Best match</option>
+            <option value="price-low">Price: low to high</option>
+            <option value="price-high">Price: high to low</option>
+          </select>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
